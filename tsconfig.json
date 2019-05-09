@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
@@ -19,11 +19,6 @@
     "jsxFactory": "Taro.createElement",
     "allowJs": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/miniprogram-api-typings",
-      "./src/typings",
-    ],
     "paths": {
       "@/*": [ "src/*" ],
       "@my_assets/*": [ "src/assets/*" ],

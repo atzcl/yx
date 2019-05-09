@@ -13,7 +13,7 @@ const cssLoaderOption = (url) => {
 }
 
 const config = {
-  projectName: 's',
+  projectName: 'yx',
   date: '2019-2-28',
   designWidth: 750,
   deviceRatio: {
@@ -123,18 +123,28 @@ const config = {
 
 module.exports = function (merge) {
   // 环境变量
-  const NODE_ENV = process.env.NODE_ENV;
+  const NODE_ENV = process.env.NODE_ENV || '';
+  const BUILD_TYPE = process.env.BUILD_TYPE || '';
 
   // 因为当前测试环境下的 api 地址分为 dev、uat、prod 三种，所以这里拓展了下对应的环境
-  if ([ 'development', 'prep_production', 'production' ].includes(NODE_ENV)) {
+  if ([ 'development', 'pre_production', 'dev_production', 'local' ].includes(NODE_ENV)) {
     return merge(
       {},
       config,
       require('./dev'),
       // todo: 因为当前的需求很简单，只是为了获取不同的 env 类型, 后面如果还需要其他设置，那么就抽离为单独的文件引入吧
-      { env: { NODE_ENV: NODE_ENV } }
+      { env: { NODE_ENV, BUILD_TYPE, } }
     )
   }
 
-  return merge({}, config, require('./prod'))
+  // build 时的
+  return merge(
+    {},
+    config, require('./prod'),
+    {
+      env: {
+        BUILD_TYPE,
+      }
+    }
+  )
 }

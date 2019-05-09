@@ -1,5 +1,5 @@
 {
-	"miniprogramRoot": "dist/",
+	"miniprogramRoot": "dist/weapp/",
 	"projectname": "yx",
 	"description": "使用 taro + taro-ui + ts + dva 开发的小程序",
 	"appid": "touristappid",
@@ -12,5 +12,6 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
+	"libVersion": "2.6.6",
 	"condition": {}
 }

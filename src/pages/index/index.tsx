@@ -1,6 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
-import { AtButton } from 'taro-ui';
+import { View } from '@tarojs/components';
+import { Timer } from './components/Timer';
 
 import { connect } from "@tarojs/redux";
 import { IStore } from '@/models/index';
@@ -17,7 +17,7 @@ interface IProps {
 };
 
 @connect(({ count }: IStore) => ({ count }) as IProps)
-class Index extends Component<IProps, IState> {
+class IndexContainer extends Component<IProps, IState> {
   config: Config = {
     navigationBarTitleText: '首页'
   }
@@ -26,29 +26,15 @@ class Index extends Component<IProps, IState> {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
   render () {
     const { count, dispatch } = this.props;
 
     return (
       <View className='index'>
-        <View style={{ textAlign: 'center', width: '80vw', margin: '3vh 0' }}>{count}</View>
-        <View className='at-row'>
-          <View className='at-col at-col-5'>
-            <AtButton onClick={() => dispatch({ type: 'count/minus' })}>-</AtButton>
-          </View>
-          <View className='at-col at-col-5 at-col__offset-2'>
-            <AtButton onClick={() => dispatch({ type: 'count/add' })}>+</AtButton>
-          </View>
-        </View>
+        <Timer {...{ count, dispatch }} />
       </View>
     )
   }
 }
 
-export default Index as any
+export default IndexContainer as any

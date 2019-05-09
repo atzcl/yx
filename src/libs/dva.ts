@@ -8,10 +8,13 @@
 
 import { create } from 'dva-core';
 import { Model, Hooks } from 'dva';
+import createLoading from 'dva-loading';
+import createImmer from 'dva-immer';
 import { createLogger } from 'redux-logger';
 
 export interface IDvaOptions {
   useImmer?: boolean;
+  useLogger?: boolean;
   useLoading?: {
     global?: boolean;
     models?: object;
@@ -31,7 +34,7 @@ export interface IDvaOptions {
  */
 export function createStore(options: IDvaOptions, createOptions: Hooks = {}) {
   // 控制台日志
-  if (process.env.NODE_ENV === 'development') {
+  if (options.useLogger) {
     createOptions.onAction = [ createLogger() ]
   }
 
@@ -39,11 +42,11 @@ export function createStore(options: IDvaOptions, createOptions: Hooks = {}) {
 
   // 加载插件
   if (options.useLoading) {
-    app.use(require('dva-loading').default(options.useLoading));
+    app.use(createLoading(options.useLoading));
   }
 
   if (options.useImmer) {
-    app.use(require('dva-immer').default());
+    app.use(createImmer());
   }
 
   // 挂载 model
